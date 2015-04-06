@@ -41,12 +41,6 @@ c = Client.find(params[:id])
 # will set destroyed_at time
 c.destroy
 
-# will restore object and all it's associations
-c.restore
-
-# will restore only this object without it's associations
-c.restore(associations: false)
-
 # will destroy object for real
 c.destroy(force: true)
 

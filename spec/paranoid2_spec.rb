@@ -81,17 +81,6 @@ describe Paranoid2 do
       model.only_deleted.wont_include b
     end
 
-    it 'restores' do
-      a = model.create
-      a.destroy
-      a.must_be :destroyed?
-
-      b = model.only_deleted.find(a.id)
-      b.restore
-      b.reload
-      b.wont_be :destroyed?
-    end
-
     it 'can be force destroyed' do
       object.save
       object.destroy(force: true)
@@ -165,42 +154,6 @@ describe Paranoid2 do
       employer.employees.count.must_equal 0
       employee.jobs.count.must_equal 0
       employee.employers.count.must_equal 0
-    end
-
-    it 'restores has_many associations' do
-      parent = ParentModel.create
-      a = model.create(parent_model: parent)
-      parent.destroy
-
-      a.reload
-
-      parent.must_be :destroyed?
-      a.must_be :destroyed?
-
-      parent = ParentModel.unscoped.find(parent.id)
-      parent.restore
-
-      a.reload
-
-      parent.wont_be :destroyed?
-      a.wont_be :destroyed?
-    end
-
-    it 'restores belongs_to associations' do
-      parent = ParentModel.create
-      a = model.create(parent_model: parent)
-
-      parent.destroy
-
-      a.reload
-
-      parent.must_be :destroyed?
-      a.must_be :destroyed?
-
-      a.restore
-
-      a.wont_be :destroyed?
-      a.parent_model.wont_be :destroyed?
     end
   end
 
