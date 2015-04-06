@@ -12,7 +12,7 @@ module Paranoid2
 
       alias acts_as_paranoid paranoid
 
-      def with_paranoid(options = {})
+      def with_paranoid(**options, &block)
         forced = options[:force] || paranoid_force
         previous, self.paranoid_force = paranoid_force, forced
         return yield
@@ -20,6 +20,7 @@ module Paranoid2
         self.paranoid_force = previous
       end
 
+      # FIXME
       def paranoid_force=(value)
         Thread.current['paranoid_force'] = value
       end
@@ -37,8 +38,8 @@ module Paranoid2
       self.class.paranoid_force
     end
 
-    def with_paranoid(value, &block)
-      self.class.with_paranoid value, &block
+    def with_paranoid(*args, &block)
+      self.class.with_paranoid(*args, &block)
     end
   end
 end
