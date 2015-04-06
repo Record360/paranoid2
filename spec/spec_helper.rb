@@ -1,5 +1,5 @@
-require 'bundler'
-Bundler.require
+$LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
+require "paranoid2"
 
 require 'minitest/autorun'
 
@@ -41,4 +41,4 @@ ActiveRecord::Schema.define do
   end
 end
 
-require_relative 'spec_models'
+require 'spec_models'
