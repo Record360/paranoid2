@@ -4,16 +4,41 @@ Bundler.require
 require 'minitest/autorun'
 
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', :database => ':memory:'
-
-[ 'CREATE TABLE parent_models (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME)',
-  'CREATE TABLE paranoid_models (id INTEGER NOT NULL PRIMARY KEY, parent_model_id INTEGER, deleted_at DATETIME)',
-  'CREATE TABLE featureful_models (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME, name VARCHAR(32), phone VARCHAR(20))',
-  'CREATE TABLE plain_models (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME)',
-  'CREATE TABLE callback_models (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME)',
-  'CREATE TABLE related_models (id INTEGER NOT NULL PRIMARY KEY, parent_model_id INTEGER NOT NULL, deleted_at DATETIME)',
-  'CREATE TABLE employers (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME)',
-  'CREATE TABLE employees (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME)',
-  'CREATE TABLE jobs (id INTEGER NOT NULL PRIMARY KEY, employer_id INTEGER NOT NULL, employee_id INTEGER NOT NULL, deleted_at DATETIME)'
-].each {|script| ActiveRecord::Base.connection.execute script }
+ActiveRecord::Migration.verbose = false
+ActiveRecord::Schema.define do
+  create_table :parent_models do |t|
+    t.datetime :deleted_at
+  end
+  create_table :paranoid_models do |t|
+    t.belongs_to :parent_model
+    t.datetime :deleted_at
+  end
+  create_table :featureful_models do |t|
+    t.datetime :deleted_at
+    t.string :name
+    t.string :phone
+  end
+  create_table :plain_models do |t|
+    t.datetime :deleted_at
+  end
+  create_table :callback_models do |t|
+    t.datetime :deleted_at
+  end
+  create_table :related_models do |t|
+    t.belongs_to :parent_model, :null => false
+    t.datetime :deleted_at
+  end
+  create_table :employers do |t|
+    t.datetime :deleted_at
+  end
+  create_table :employees do |t|
+    t.datetime :deleted_at
+  end
+  create_table :jobs do |t|
+    t.belongs_to :employer, :null => false
+    t.belongs_to :employee, :null => false
+    t.datetime :deleted_at
+  end
+end
 
 require_relative 'spec_models'
