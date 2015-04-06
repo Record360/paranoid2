@@ -6,11 +6,11 @@ module Paranoid2
 
     class_methods do
       def paranoid_scope
-        where(deleted_at: nil)
+        where(deleted_at: Paranoid2.alive_value)
       end
 
       def only_deleted
-        with_deleted.where.not(deleted_at: nil)
+        with_deleted.where.not(deleted_at: Paranoid2.alive_value)
       end
 
       def with_deleted

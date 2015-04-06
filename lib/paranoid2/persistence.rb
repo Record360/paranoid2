@@ -32,7 +32,7 @@ module Paranoid2
     end
 
     def destroyed?
-      !deleted_at.nil?
+      deleted_at != Paranoid2.alive_value
     end
 
     def persisted?
