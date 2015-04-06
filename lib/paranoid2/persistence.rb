@@ -41,7 +41,7 @@ module Paranoid2
       !new_record?
     end
 
-    alias :deleted? :destroyed?
+    alias deleted? destroyed?
 
     def destroy_row
       if paranoid_force
