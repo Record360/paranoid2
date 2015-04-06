@@ -1,6 +1,6 @@
 # Paranoid2
 
-[paranoia gem](https://github.com/radar/paranoia) ideas (and code) adapted for rails 4.
+[paranoia gem](https://github.com/radar/paranoia) ideas (and code) adapted for Rails >= 4.1
 
 Rails 4 defines `ActiveRecord::Base#destroy!` so `Paranoid2` gem use `force: true` arg to force destroy.
 

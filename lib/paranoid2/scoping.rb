@@ -6,8 +6,7 @@ module Paranoid2
       default_scope { paranoid_scope }
     end
 
-    module ClassMethods
-
+    class_methods do
       def paranoid_scope
         where(deleted_at: nil)
       end
@@ -16,17 +15,8 @@ module Paranoid2
         with_deleted.where.not(deleted_at: nil)
       end
 
-
-      if ActiveRecord::Base.respond_to?(:unscope)
-        # Rails >= 4.1
-        def with_deleted
-          unscope(where: :deleted_at)
-        end
-      else
-        # Rails < 4.1
-        def with_deleted
-          all.tap {|s| s.default_scope = false}
-        end
+      def with_deleted
+        unscope(where: :deleted_at)
       end
     end
   end

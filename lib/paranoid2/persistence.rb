@@ -12,8 +12,12 @@ module Paranoid2
 
     def delete(opts = {})
       with_paranoid(opts) do
-        touch(:deleted_at) if !deleted? && persisted?
-        self.class.unscoped { super() } if paranoid_force
+        if !deleted? && persisted?
+          touch(:deleted_at)
+        end
+        if paranoid_force
+          self.class.unscoped { super() }
+        end
       end
     end
 
@@ -37,8 +41,10 @@ module Paranoid2
       end
     end
 
-    module ClassMethods
-      def paranoid? ; true ; end
+    class_methods do
+      def paranoid?
+        true
+      end
 
       def destroy_all!(conditions = nil)
         with_paranoid(force: true) do

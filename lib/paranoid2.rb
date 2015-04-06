@@ -17,12 +17,14 @@ module Paranoid2
     self.class.paranoid_force
   end
 
-  def with_paranoid value, &block
+  def with_paranoid(value, &block)
     self.class.with_paranoid value, &block
   end
 
-  module ClassMethods
-    def paranoid? ; false ; end
+  class_methods do
+    def paranoid?
+      false
+    end
 
     def paranoid
       include Persistence
@@ -31,7 +33,7 @@ module Paranoid2
 
     alias acts_as_paranoid paranoid
 
-    def with_paranoid opts={}
+    def with_paranoid(opts = {})
       forced = opts[:force] || paranoid_force
       previous, self.paranoid_force = paranoid_force, forced
       return yield
@@ -39,7 +41,7 @@ module Paranoid2
       self.paranoid_force = previous
     end
 
-    def paranoid_force= value
+    def paranoid_force=(value)
       Thread.current['paranoid_force'] = value
     end
 
@@ -49,4 +51,4 @@ module Paranoid2
   end
 end
 
-ActiveRecord::Base.send :include, Paranoid2
+ActiveSupport.on_load(:active_record) { include Paranoid2 }
