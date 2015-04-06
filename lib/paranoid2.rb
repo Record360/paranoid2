@@ -33,8 +33,8 @@ module Paranoid2
 
     alias acts_as_paranoid paranoid
 
-    def with_paranoid(opts = {})
-      forced = opts[:force] || paranoid_force
+    def with_paranoid(options = {})
+      forced = options[:force] || paranoid_force
       previous, self.paranoid_force = paranoid_force, forced
       return yield
     ensure

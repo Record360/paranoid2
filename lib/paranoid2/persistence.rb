@@ -2,16 +2,16 @@ module Paranoid2
   module Persistence
     extend ActiveSupport::Concern
 
-    def destroy(opts = {})
-      with_paranoid(opts) { super() }
+    def destroy(options = {})
+      with_paranoid(options) { super() }
     end
 
-    def destroy!(opts = {})
-      with_paranoid(opts) { super() }
+    def destroy!(options = {})
+      with_paranoid(options) { super() }
     end
 
-    def delete(opts = {})
-      with_paranoid(opts) do
+    def delete(options = {})
+      with_paranoid(options) do
         if !deleted? && persisted?
           touch(:deleted_at)
         end
