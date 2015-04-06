@@ -3,12 +3,7 @@ Bundler.require
 
 require 'minitest/autorun'
 
-DB_FILE = 'tmp/test_db'
-
-FileUtils.mkpath File.dirname(DB_FILE)
-FileUtils.rm_f DB_FILE
-
-ActiveRecord::Base.establish_connection adapter: 'sqlite3', :database => DB_FILE
+ActiveRecord::Base.establish_connection adapter: 'sqlite3', :database => ':memory:'
 
 [ 'CREATE TABLE parent_models (id INTEGER NOT NULL PRIMARY KEY, deleted_at DATETIME)',
   'CREATE TABLE paranoid_models (id INTEGER NOT NULL PRIMARY KEY, parent_model_id INTEGER, deleted_at DATETIME)',
