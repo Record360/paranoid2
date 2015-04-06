@@ -1,7 +1,5 @@
 module Paranoid2
-  module Scoping
-    extend ActiveSupport::Concern
-
+  concern :Scoping do
     included do
       default_scope { paranoid_scope }
     end

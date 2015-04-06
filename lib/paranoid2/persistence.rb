@@ -1,7 +1,5 @@
 module Paranoid2
-  module Persistence
-    extend ActiveSupport::Concern
-
+  concern :Persistence do
     class_methods do
       def paranoid?
         true
