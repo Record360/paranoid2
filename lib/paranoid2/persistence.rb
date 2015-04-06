@@ -2,6 +2,18 @@ module Paranoid2
   module Persistence
     extend ActiveSupport::Concern
 
+    class_methods do
+      def paranoid?
+        true
+      end
+
+      def destroy_all!(conditions = nil)
+        with_paranoid(force: true) do
+          destroy_all(conditions)
+        end
+      end
+    end
+
     def destroy(options = {})
       with_paranoid(options) { super() }
     end
@@ -38,18 +50,6 @@ module Paranoid2
       else
         delete
         1
-      end
-    end
-
-    class_methods do
-      def paranoid?
-        true
-      end
-
-      def destroy_all!(conditions = nil)
-        with_paranoid(force: true) do
-          destroy_all(conditions)
-        end
       end
     end
   end

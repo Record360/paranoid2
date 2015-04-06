@@ -9,18 +9,6 @@ require 'paranoid2/scoping'
 module Paranoid2
   extend ActiveSupport::Concern
 
-  def paranoid?
-    self.class.paranoid?
-  end
-
-  def paranoid_force
-    self.class.paranoid_force
-  end
-
-  def with_paranoid(value, &block)
-    self.class.with_paranoid value, &block
-  end
-
   class_methods do
     def paranoid?
       false
@@ -48,6 +36,18 @@ module Paranoid2
     def paranoid_force
       Thread.current['paranoid_force']
     end
+  end
+
+  def paranoid?
+    self.class.paranoid?
+  end
+
+  def paranoid_force
+    self.class.paranoid_force
+  end
+
+  def with_paranoid(value, &block)
+    self.class.with_paranoid value, &block
   end
 end
 
