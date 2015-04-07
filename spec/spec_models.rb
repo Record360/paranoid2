@@ -6,7 +6,7 @@ class PlainModel < ActiveRecord::Base
 end
 
 class ParanoidModel < ActiveRecord::Base
-  acts_as_paranoid
+  paranoid
   belongs_to :parent_model
 end
 

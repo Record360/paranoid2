@@ -10,8 +10,6 @@ module Paranoid2
         include Scoping
       end
 
-      alias acts_as_paranoid paranoid
-
       def with_paranoid(**options, &block)
         forced = options[:force] || paranoid_force
         previous, self.paranoid_force = paranoid_force, forced
