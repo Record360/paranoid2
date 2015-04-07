@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
 require "paranoid2"
 
-require 'minitest/autorun'
+require 'test/unit'
 
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', :database => ':memory:'
 ActiveRecord::Migration.verbose = false
@@ -41,4 +41,4 @@ ActiveRecord::Schema.define do
   end
 end
 
-require 'spec_models'
+require 'models'
