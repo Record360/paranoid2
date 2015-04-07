@@ -10,8 +10,8 @@ module Paranoid2
         include Scoping
       end
 
-      def with_paranoid(**options, &block)
-        paranoid_stack.push(options[:force] || paranoid_stack.last)
+      def with_paranoid(force: false, &block)
+        paranoid_stack.push(force || paranoid_force?)
         return yield
       ensure
         paranoid_stack.pop
