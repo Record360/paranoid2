@@ -28,7 +28,7 @@ class TestParanoid2 < Test::Unit::TestCase
 
       object.destroy
 
-      assert_equal Paranoid2.alive_value, object.deleted_at
+      assert_equal nil, object.deleted_at
       assert_equal true, object.frozen?
 
       assert_equal 0, PlainModel.count
