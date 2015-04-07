@@ -38,7 +38,7 @@ end
 
 c = Client.find(params[:id])
 
-# will set destroyed_at time
+# will set deleted_at time
 c.destroy
 
 # will destroy object for real
