@@ -25,7 +25,7 @@ module Paranoid2
         if !deleted? && persisted?
           touch(:deleted_at)    # FIXME
         end
-        if paranoid_force
+        if paranoid_force?
           self.class.unscoped { super() }
         end
       end
@@ -42,7 +42,7 @@ module Paranoid2
     alias deleted? destroyed?
 
     def destroy_row
-      if paranoid_force
+      if paranoid_force?
         self.deleted_at = Time.now # FIXME
         super
       else

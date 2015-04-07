@@ -11,20 +11,20 @@ module Paranoid2
       end
 
       def with_paranoid(**options, &block)
-        forced = options[:force] || paranoid_force
-        previous, self.paranoid_force = paranoid_force, forced
+        paranoid_stack.push(options[:force] || paranoid_stack.last)
         return yield
       ensure
-        self.paranoid_force = previous
+        paranoid_stack.pop
       end
 
-      # FIXME
-      def paranoid_force=(value)
-        Thread.current['paranoid_force'] = value
+      def paranoid_force?
+        paranoid_stack.last
       end
 
-      def paranoid_force
-        Thread.current['paranoid_force']
+      private
+
+      def paranoid_stack
+        Thread.current['paranoid_stack'] ||= []
       end
     end
 
@@ -32,8 +32,8 @@ module Paranoid2
       self.class.paranoid?
     end
 
-    def paranoid_force
-      self.class.paranoid_force
+    def paranoid_force?
+      self.class.paranoid_force?
     end
 
     def with_paranoid(*args, &block)
