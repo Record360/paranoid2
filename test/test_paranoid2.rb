@@ -63,8 +63,8 @@ class TestParanoid2 < Test::Unit::TestCase
 
       object.destroy
 
-      assert_equal false, object.deleted_at.nil?
-      assert_equal true, object.frozen?
+      assert Paranoid2.alive_value != object.deleted_at
+      assert object.frozen?
 
       assert_equal 0, ParanoidModel.count
       assert_equal 1, ParanoidModel.unscoped.count
