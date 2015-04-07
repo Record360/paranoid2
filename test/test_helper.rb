@@ -5,7 +5,7 @@ require "paranoid2"
 require 'test/unit'
 
 Test::Unit.at_start do
-  Paranoid2.alive_value = DateTime.parse("2050-01-01 00:00:00")
+  Paranoid2.alive_value = DateTime.parse("9999-01-01")
 
   ActiveRecord::Base.establish_connection adapter: 'sqlite3', :database => ':memory:'
   ActiveRecord::Migration.verbose = false
