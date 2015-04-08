@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-### How to change deleted_at default value
+### To change initial value of deleted_at?
 
 ```ruby
 Paranoid2.configure do |config|
