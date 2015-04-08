@@ -26,7 +26,7 @@ class TestParanoid2 < Test::Unit::TestCase
       object.save!
       assert_equal 1, PlainModel.count
 
-      object.destroy
+      object.destroy!
 
       assert_equal nil, object.deleted_at
       assert_equal true, object.frozen?
@@ -51,7 +51,7 @@ class TestParanoid2 < Test::Unit::TestCase
       object = ParanoidModel.create!
       param = object.to_param
 
-      object.destroy
+      object.destroy!
 
       assert_equal param, object.to_param
     end
@@ -61,7 +61,7 @@ class TestParanoid2 < Test::Unit::TestCase
       object = ParanoidModel.create!
       assert_equal 1, ParanoidModel.count
 
-      object.destroy
+      object.destroy!
 
       assert Paranoid2.alive_value != object.deleted_at
       assert object.frozen?
@@ -72,14 +72,14 @@ class TestParanoid2 < Test::Unit::TestCase
 
     test 'has working only_deleted scope' do
       a = ParanoidModel.create!
-      a.destroy
+      a.destroy!
       b = ParanoidModel.create
       assert_equal [a], ParanoidModel.only_deleted
     end
 
     test 'can be force destroyed' do
       object = ParanoidModel.create!
-      object.destroy(force: true)
+      object.destroy!(force: true)
 
       assert_equal true, object.destroyed?
 
@@ -99,8 +99,8 @@ class TestParanoid2 < Test::Unit::TestCase
       parent2 = ParentModel.create!
       a = ParanoidModel.create!(parent_model: parent1)
       b = ParanoidModel.create!(parent_model: parent2)
-      a.destroy
-      b.destroy
+      a.destroy!
+      b.destroy!
       assert_equal 0, parent1.paranoid_models.count
       assert_equal 1, parent1.paranoid_models.only_deleted.count
 
@@ -139,12 +139,12 @@ class TestParanoid2 < Test::Unit::TestCase
 
       employee2 = Employee.create
       job2 = Job.create employer: employer, employee: employee2
-      employee2.destroy
+      employee2.destroy!
 
       assert_equal 2, employer.jobs.count
       assert_equal 1, employer.employees.count
 
-      job.destroy
+      job.destroy!
 
       assert_equal 1, employer.jobs.count
       assert_equal 0, employer.employees.count
@@ -163,7 +163,7 @@ class TestParanoid2 < Test::Unit::TestCase
 
     test 'destroy with callback' do
       object = CallbackModel.create!
-      object.destroy
+      object.destroy!
 
       assert_equal true, object.callback_called
     end
@@ -183,7 +183,7 @@ class TestParanoid2 < Test::Unit::TestCase
       a = FeaturefulModel.create!(name: 'yury', phone: '9106701550')
       b = FeaturefulModel.new(name: 'bla', phone: '9106701550')
       assert_equal false, b.valid?
-      a.destroy
+      a.destroy!
       assert_equal true, b.valid?
     end
   end
