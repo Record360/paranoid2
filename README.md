@@ -52,7 +52,7 @@ User.with_deleted.count # => 1
 User.only_deleted.count # => 1
 # >> SELECT COUNT(*) FROM "users" WHERE ("users"."deleted_at" != '9999-01-01 00:00:00.000000')
 
-user = User.first
+user.reload
 # will destroy object for real
 user.destroy!(force: true)
 # DELETE FROM "users" WHERE "users"."id" = ?  [["id", 1]]
