@@ -23,7 +23,7 @@ module Paranoid2
     def delete(**options)
       with_paranoid(options) do
         if !deleted? && persisted?
-          touch(:deleted_at)    # FIXME
+          touch(:deleted_at)
         end
         if paranoid_force?
           self.class.unscoped { super() }
@@ -43,7 +43,7 @@ module Paranoid2
 
     def destroy_row
       if paranoid_force?
-        self.deleted_at = Time.now # FIXME
+        self.deleted_at = Time.now # For object.destroyed?
         super
       else
         delete
