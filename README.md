@@ -16,48 +16,49 @@ And then execute:
 
 ## Usage
 
-Add `deleted_at: datetime` to your model.
-Generate and run migrations.
+Migration
 
-```
-rails g migration AddDeletedAtToClients deleted_at:datetime
-```
 ```ruby
-class AddDeletedAtToClients < ActiveRecord::Migration
-  def change
-    add_column :clients, :deleted_at, :datetime
-  end
+create_table :users do |t|
+  t.datetime :deleted_at, :null => false
 end
 ```
 
-```ruby
+Model
 
-class Client < ActiveRecord::Base
+```ruby
+class User < ActiveRecord::Base
   paranoid
 end
-
-c = Client.find(params[:id])
-
-# will set deleted_at time
-c.destroy
-
-# will destroy object for real
-c.destroy(force: true)
-
-# also useful scopes are available
-Client.with_deleted
-Client.only_deleted
-
 ```
 
-### With paperclip
-
 ```ruby
-class Listing < ActiveRecord::Base
-  has_attached_file :image,
-    # ...
-    preserve_files: true
-end
+user = User.create!
+# >> INSERT INTO "users" ("deleted_at") VALUES (?)  [["deleted_at", "9999-01-01 00:00:00.000000"]]
+
+User.count # => 1
+# >> SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" = '9999-01-01 00:00:00.000000'
+
+# will set deleted_at time
+user.destroy! # => #<User id: 1, deleted_at: "2015-01-01 00:00:00">
+# >> UPDATE "users" SET "deleted_at" = '2015-01-01 00:00:00.000000' WHERE "users"."id" = ?  [["id", 1]]
+
+User.count # => 0
+# >> SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" = '9999-01-01 00:00:00.000000'
+
+User.with_deleted.count # => 1
+# >> SELECT COUNT(*) FROM "users"
+
+User.only_deleted.count # => 1
+# >> SELECT COUNT(*) FROM "users" WHERE ("users"."deleted_at" != '9999-01-01 00:00:00.000000')
+
+user = User.first
+# will destroy object for real
+user.destroy!(force: true)
+# DELETE FROM "users" WHERE "users"."id" = ?  [["id", 1]]
+
+User.with_deleted.count # => 0
+# >> SELECT COUNT(*) FROM "users"
 ```
 
 ## Contributing
