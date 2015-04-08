@@ -16,7 +16,7 @@ And then execute:
 
 ## Usage
 
-Migration
+### Migration
 
 ```ruby
 create_table :users do |t|
@@ -24,7 +24,7 @@ create_table :users do |t|
 end
 ```
 
-Model
+### Model
 
 ```ruby
 class User < ActiveRecord::Base
@@ -61,7 +61,7 @@ User.with_deleted.count # => 0
 # >> SELECT COUNT(*) FROM "users"
 ```
 
-How to uniqueness validation
+### How to uniqueness validation
 
 ```ruby
 class User < ActiveRecord::Base
@@ -69,6 +69,23 @@ class User < ActiveRecord::Base
   validates :name, uniqueness: {conditions: -> { paranoid_scope }}
 end
 ```
+
+### How to change deleted_at default value
+
+```ruby
+Paranoid2.configure do |config|
+  config.alive_value = nil
+end
+```
+
+But deleted_at is allow null. it is not recommended.
+If normal use, does not need to know the initial value of deleted_at using.
+
+### To restore record?
+
+There is no way.
+If the restoration is required, how to make the model is incorrect.
+Rather than a logical delete, it is better to be implemented as a state.
 
 ## Contributing
 
