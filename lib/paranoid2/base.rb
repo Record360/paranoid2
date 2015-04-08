@@ -12,7 +12,7 @@ module Paranoid2
 
       def with_paranoid(force: false, &block)
         paranoid_stack.push(force || paranoid_force?)
-        return yield
+        yield
       ensure
         paranoid_stack.pop
       end

@@ -1,6 +1,6 @@
-$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "timecop"
-require "paranoid2"
+$LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
+require 'timecop'
+require 'paranoid2'
 
 Timecop.freeze(DateTime.parse("2015-01-01"))
 

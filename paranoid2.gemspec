@@ -20,9 +20,9 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'activerecord', '>= 4.1.0'
 
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "sqlite3"
-  gem.add_development_dependency "pry-byebug"
-  gem.add_development_dependency "test-unit"
-  gem.add_development_dependency "timecop"
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'sqlite3'
+  gem.add_development_dependency 'pry-byebug'
+  gem.add_development_dependency 'test-unit'
+  gem.add_development_dependency 'timecop'
 end
