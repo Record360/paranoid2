@@ -34,23 +34,23 @@ end
 
 ```ruby
 user = User.create!
-# >> INSERT INTO "users" ("deleted_at") VALUES (?)  [["deleted_at", "9999-01-01 00:00:00.000000"]]
+# >> INSERT INTO "users" ("deleted_at") VALUES (?)  [["deleted_at", "0000-01-01 00:00:00.000000"]]
 
 User.count # => 1
-# >> SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" = '9999-01-01 00:00:00.000000'
+# >> SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" = '0000-01-01 00:00:00.000000'
 
 # will set deleted_at time
 user.destroy! # => #<User id: 1, deleted_at: "2015-01-01 00:00:00">
 # >> UPDATE "users" SET "deleted_at" = '2015-01-01 00:00:00.000000' WHERE "users"."id" = ?  [["id", 1]]
 
 User.count # => 0
-# >> SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" = '9999-01-01 00:00:00.000000'
+# >> SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" = '0000-01-01 00:00:00.000000'
 
 User.with_deleted.count # => 1
 # >> SELECT COUNT(*) FROM "users"
 
 User.only_deleted.count # => 1
-# >> SELECT COUNT(*) FROM "users" WHERE ("users"."deleted_at" != '9999-01-01 00:00:00.000000')
+# >> SELECT COUNT(*) FROM "users" WHERE ("users"."deleted_at" != '0000-01-01 00:00:00.000000')
 
 user.reload
 # will destroy object for real

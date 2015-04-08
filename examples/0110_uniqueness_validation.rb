@@ -27,16 +27,16 @@ user.destroy!
 User.create!(name: "alice")
 # >>    (0.0ms)  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "deleted_at" datetime NOT NULL) 
 # >>    (0.0ms)  begin transaction
-# >>   User Exists (0.0ms)  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' AND "users"."deleted_at" = '9999-01-01 00:00:00.000000' LIMIT 1
-# >>   SQL (0.0ms)  INSERT INTO "users" ("deleted_at", "name") VALUES (?, ?)  [["deleted_at", "9999-01-01 00:00:00.000000"], ["name", "alice"]]
+# >>   User Exists (0.0ms)  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' AND "users"."deleted_at" = '0000-01-01 00:00:00.000000' LIMIT 1
+# >>   SQL (0.0ms)  INSERT INTO "users" ("deleted_at", "name") VALUES (?, ?)  [["deleted_at", "0000-01-01 00:00:00.000000"], ["name", "alice"]]
 # >>    (0.0ms)  commit transaction
 # >>    (0.0ms)  begin transaction
-# >>   User Exists (0.0ms)  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' AND "users"."deleted_at" = '9999-01-01 00:00:00.000000' LIMIT 1
+# >>   User Exists (0.0ms)  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' AND "users"."deleted_at" = '0000-01-01 00:00:00.000000' LIMIT 1
 # >>    (0.0ms)  rollback transaction
 # >>    (0.0ms)  begin transaction
 # >>   SQL (0.0ms)  UPDATE "users" SET "deleted_at" = '2015-01-01 00:00:00.000000' WHERE "users"."id" = ?  [["id", 1]]
 # >>    (0.0ms)  commit transaction
 # >>    (0.0ms)  begin transaction
-# >>   User Exists (0.0ms)  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' AND "users"."deleted_at" = '9999-01-01 00:00:00.000000' LIMIT 1
-# >>   SQL (0.0ms)  INSERT INTO "users" ("deleted_at", "name") VALUES (?, ?)  [["deleted_at", "9999-01-01 00:00:00.000000"], ["name", "alice"]]
+# >>   User Exists (0.0ms)  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' AND "users"."deleted_at" = '0000-01-01 00:00:00.000000' LIMIT 1
+# >>   SQL (0.0ms)  INSERT INTO "users" ("deleted_at", "name") VALUES (?, ?)  [["deleted_at", "0000-01-01 00:00:00.000000"], ["name", "alice"]]
 # >>    (0.0ms)  commit transaction
