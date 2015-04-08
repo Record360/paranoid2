@@ -61,6 +61,15 @@ User.with_deleted.count # => 0
 # >> SELECT COUNT(*) FROM "users"
 ```
 
+How to uniqueness validation
+
+```ruby
+class User < ActiveRecord::Base
+  paranoid
+  validates :name, uniqueness: {conditions: -> { paranoid_scope }}
+end
+```
+
 ## Contributing
 
 1. Fork it
