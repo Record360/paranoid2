@@ -5,9 +5,9 @@ module Paranoid2
         true
       end
 
-      def destroy_all!(conditions = nil)
+      def destroy_all!
         with_paranoid(force: true) do
-          destroy_all(conditions)
+          destroy_all
         end
       end
     end

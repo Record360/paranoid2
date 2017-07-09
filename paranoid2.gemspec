@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Paranoid2::VERSION
   gem.authors       = ["yury"]
   gem.email         = ["yury.korolev@gmail.com"]
-  gem.description   = %q{paranoid models for rails 4}
-  gem.summary       = %q{paranoid models for rails 4}
+  gem.description   = %q{paranoid models for rails 5}
+  gem.summary       = %q{paranoid models for rails 5}
   gem.homepage      = "https://github.com/anjlab/paranoid2"
   gem.license       = "MIT"
 
