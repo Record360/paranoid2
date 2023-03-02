@@ -36,8 +36,8 @@ module Paranoid2
       self.class.paranoid_force?
     end
 
-    def with_paranoid(*args, &block)
-      self.class.with_paranoid(*args, &block)
+    def with_paranoid(...)
+      self.class.with_paranoid(...)
     end
   end
 end

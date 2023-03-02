@@ -13,15 +13,15 @@ module Paranoid2
     end
 
     def destroy(**options)
-      with_paranoid(options) { super() }
+      with_paranoid(**options) { super() }
     end
 
     def destroy!(**options)
-      with_paranoid(options) { super() }
+      with_paranoid(**options) { super() }
     end
 
     def delete(**options)
-      with_paranoid(options) do
+      with_paranoid(**options) do
         if !deleted? && persisted?
           touch(:deleted_at)
         end
